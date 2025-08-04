@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome, {{ session['username'] }}!</h2>
+
+<h3>Write a New Journal Entry</h3>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }}<br>
+    {{ form.title(size=50) }}<br><br>
+    {{ form.content.label }}<br>
+    {{ form.content(rows=6, cols=50) }}<br><br>
+    {{ form.submit() }}
+</form>
+
+<hr>
+
+<h3>Your Journal Entries</h3>
+{% for entry in entries %}
+    <div class="entry">
+        <h4>{{ entry.title }} <small>({{ entry.date.strftime('%Y-%m-%d') }})</small></h4>
+        <p>{{ entry.content }}</p>
+        <a href="{{ url_for('main.edit_entry', id=entry.id) }}">Edit</a> |
+        <a href="{{ url_for('main.delete_entry', id=entry.id) }}">Delete</a>
+    </div>
+    <hr>
+{% else %}
+    <p>No entries yet.</p>
+{% endfor %}
+
+{% endblock %}

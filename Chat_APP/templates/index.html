@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Whispering Walls: Lobby</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+
+<body>
+    <div class = "container">
+        <h1> Welcome to the Whispering Walls </h1>
+
+        <p class = "tagline">
+            {% with messages = get_flashed_messages(with_categories = true) %}
+                
+                {% if messages %}
+                    <ul class = "flashes">
+                        {% for category, message in messages %}
+                            <li class = "{{category}}"> {{message}}</li>
+                        {% endfor %}
+                    </ul>
+                {%endif%}
+            {% endwith %}
+        </p>
+
+        <form method = "POST" class = "join-form">
+            <label for ="nickname"> What's your secret chat alias?</label>
+
+            <input type = "text" id="nickname" name = "nickname" placeholder = "e.g., ChattyMcChatFace" required autofocus>
+
+            <label for "room">Which echo chamber would you like to join?(Optional)</label>
+
+            <input type = "text" id = "room" name = "room" placeholder = "e.g., General, cats_only, coding_gurus">
+
+            <button type = "submit"> Enter the Echo Chamber!</button>
+        </form>
+
+        <p class = "footer-note">
+            Powered by Flask & a whole lot of real-time magic!
+            <br>
+            Coded with ☕ by EscapeRoomCoding
+        </p>
+    </div>
+
+
+</body>
+
+</html>

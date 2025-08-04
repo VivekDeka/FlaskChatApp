@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <title>Secure Journal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="nav">
+        {% if session.get('username') %}
+            <span>Logged in as {{ session['username'] }}</span> |
+            <a href="{{ url_for('main.logout') }}">Logout</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
